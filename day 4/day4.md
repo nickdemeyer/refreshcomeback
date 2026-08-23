@@ -5,4 +5,4 @@
 
 #23/08/26
 - function that prints when a number is even or odd
-- 
+- List sum function — a function that takes a list of numbers and returns the total sum (use a loop inside)

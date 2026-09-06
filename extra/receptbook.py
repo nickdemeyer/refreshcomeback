@@ -9,7 +9,22 @@ def add_recepts(recept):
     recept.append(r)
     print("recept added")
     
-    
+def view_recepts(recept):
+    for r in recept:
+        print("=============================================================")
+        print(f"recept: {r["receptname"]}")
+        print(f"prep time: {r["preperationtime"]} ")
+        print(f"ingredients: {r["ingredients"]}")
+        print("=============================================================")
+
+def search_recept(recept):
+    user_input = input("search: ")
+    for r in recept:
+        if r["receptname"] == user_input:
+            print("==================================")
+            print(f"{r}")
+            print("==================================")
+
 while True:
     print("=== RECEPT BOOK MENU ===")
     print("1. View Recepts")
@@ -19,8 +34,12 @@ while True:
 
     choice = input("Choose: ")
 
-    if choice == "2":
+    if choice == "1":
+        view_recepts(recepts)
+    elif choice == "2":
         add_recepts(recepts)
-    else:
+    elif choice == "3":
+        search_recept(recepts)
+    elif choice == "4":
         print("exiting...")
         break

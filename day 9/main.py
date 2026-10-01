@@ -5,6 +5,34 @@ from datetime import datetime
 tracker = WorkoutTracker()
 meal_tracker = MealTracker()
 
+def get_valid_number(prompt, number_type):
+    while True:
+            try:
+                number = number_type(input(prompt)) 
+                if number <= 0:
+                    print("Number must be greater then 0.")
+                else:
+                    return number
+            except ValueError:
+                print("Invalid Input. Try again.")
+
+def get_valid_text(prompt):
+    while True:
+        text = input(prompt)
+        if text == "":
+            print("Invalid Input.")
+        else:
+            return text
+
+def get_valid_date(prompt):
+    while True:
+        date = input(prompt)
+        try:
+            datetime.strptime(date, "%d-%m-%Y")
+            return date
+        except ValueError:
+            print("Invalid Input. Try again.")
+
 while True:
     print("==== MENU ====")
     print("1. WORKOUTS")
@@ -23,46 +51,11 @@ while True:
                 choice = input("Option: ")
 
                 if choice == "1":
-                        while True:
-                            try:
-                                date = input("Date (DD-MM-YYYY): ")
-                                datetime.strptime(date, "%d-%m-%Y")
-                                break
-                            except ValueError:
-                                print("Invalid Input. Try again.")
-                        while True:
-                                exercise = input("Exercise: ")
-                                if exercise == "":
-                                    print("Fill in the exercise.")
-                                else:
-                                    break
-                        while True:
-                            try:
-                                sets = int(input("Sets: "))
-                                if sets <= 0:
-                                    print("Number must be greater then 0.")
-                                else:
-                                    break
-                            except ValueError:
-                                print("Invalid Input. Try again.")
-                        while True:
-                            try:
-                                reps = int(input("Reps: "))
-                                if reps <= 0:
-                                    print("Number must be greater then 0.")
-                                else:
-                                    break
-                            except ValueError:
-                                print("Invalid Input. Try again.")
-                        while True:
-                            try:
-                                weight = float(input("Weight: "))
-                                if weight <= 0:
-                                    print("Number must be greater then 0.")
-                                else:
-                                    break
-                            except ValueError:
-                                print("Invalid Input. Try again.")
+                        date = get_valid_date("Date (DD-MM-YYYY): ")
+                        exercise = get_valid_text("Exercise: ")
+                        sets = get_valid_number("Sets: ", int)
+                        reps = get_valid_number("Reps:", int)
+                        weight = get_valid_number("Weight", float)
 
                         tracker.add_workout(date, exercise, sets, reps, weight)
 
@@ -83,55 +76,12 @@ while True:
             choice = input("Choose option: ")
 
             if choice == "1":
-                while True:
-                    try:
-                        date = input("Date (DD-MM-YYYY): ")
-                        datetime.strptime(date, "%d-%m-%Y")
-                        break
-                    except ValueError:
-                        print("Invalid Input. Try again.")
-                while True:
-                    name = input("Meal: ")
-                    if name == "":
-                        print("Fill in the Meal.")
-                    else:
-                        break
-                while True:
-                    try:
-                        calories = int(input("Calories: "))
-                        if calories <= 0:
-                            print("Input must be greater then 0.")
-                        else:
-                            break
-                    except ValueError:
-                        print("Invalid Input.")
-                while True:
-                    try:
-                        protein = int(input("Protein: "))
-                        if protein <= 0:
-                            print("Input must be greater then 0.")
-                        else:
-                            break
-                    except ValueError:
-                        print("Invalid Input.")
-                while True:
-                    try:
-                        carbs = int(input("Carbs: "))
-                        if carbs <= 0:
-                            print("Input must be greater then 0.")
-                        else:
-                            break
-                    except ValueError:
-                        print("Invalid Input.")
-                while True:
-                    try:
-                        fats = int(input("Fats: "))
-                        if fats <= 0:
-                            print("Input must be greater then 0.")
-                        else:
-                            break
-                    except ValueError:
-                        print("Invalid Input.")
+                date = get_valid_date("Date (DD-MM-YYYY): ")
+                name = get_valid_text("Meal: ")
+                calories = get_valid_number("Calories", int)
+                protein = get_valid_number("Protein", int)
+                carbs = get_valid_number("Carbs", int)
+                fats = get_valid_number("Fats", int)
                 meal_tracker.add_meal(date, name, calories, protein, carbs, fats)
 
             elif choice == "2":
